@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsuWebApp", "AsuWebApp\AsuWebApp.csproj", "{128689E0-2CDF-405B-AAEE-6ACA930617C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{631EDE34-FC04-4360-8D29-18F27A3D62F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{C3CD8347-8B28-411F-AACF-471D6121CD45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{204EC52D-7C5B-4918-B873-BBD992276F4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{38320868-CDA8-4639-B737-B0F4CD3FDE6B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{128689E0-2CDF-405B-AAEE-6ACA930617C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{128689E0-2CDF-405B-AAEE-6ACA930617C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{128689E0-2CDF-405B-AAEE-6ACA930617C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{128689E0-2CDF-405B-AAEE-6ACA930617C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{128689E0-2CDF-405B-AAEE-6ACA930617C1} = {631EDE34-FC04-4360-8D29-18F27A3D62F0}
+	EndGlobalSection
+EndGlobal
