@@ -15,7 +15,7 @@ namespace ModelingLogicalSchemes.Components.Entities
 
 		private readonly LogicalElementFunction<TInput, TOutput> _function;
 
-		private Dictionary<LogicalElementConnection, LogicalElementConnectionType> _connections;
+		private Dictionary<LogicalElementConnection<LogicalElement<TInput, TOutput>>, LogicalElementConnectionType> _connections;
 
 		#endregion
 
@@ -45,7 +45,7 @@ namespace ModelingLogicalSchemes.Components.Entities
 			}
 		}
 
-		public void SetConnections(Dictionary<LogicalElementConnection, LogicalElementConnectionType> connections)
+		public void SetConnections(Dictionary<LogicalElementConnection<LogicalElement<TInput, TOutput>>, LogicalElementConnectionType> connections)
 		{
 			if (connections == null)
 			{
