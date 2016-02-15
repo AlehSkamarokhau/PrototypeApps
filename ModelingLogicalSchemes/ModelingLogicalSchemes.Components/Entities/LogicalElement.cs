@@ -3,39 +3,21 @@ using System.Collections.Generic;
 
 namespace ModelingLogicalSchemes.Components.Entities
 {
-	public delegate TOutput LogicalElementFunction<TInput, TOutput>(TInput[] inputValues);
-
-	public class LogicalElement<TInput, TOutput>
+	public class LogicalElement
 	{
 		#region Private Fields
 
-		private readonly int _numberElement;
+		private int _numberElement;
 
-		private readonly bool _isBrokenElement;
+		private Func<bool[], bool> _function;
 
-		private readonly LogicalElementFunction<TInput, TOutput> _function;
+		private BrokenTypes _brokenType;
 
-		private Dictionary<LogicalElementConnection<LogicalElement<TInput, TOutput>>, LogicalElementConnectionType> _connections;
-
-		#endregion
-
-		#region Constructor
-
-		public LogicalElement(LogicalElementFunction<TInput, TOutput> function, int numberElement, bool isBrokenElement = false)
-		{
-			if (function == null)
-			{
-				throw new ArgumentNullException("function");
-			}
-
-			_numberElement = numberElement;
-			_isBrokenElement = isBrokenElement;
-			_function = new LogicalElementFunction<TInput, TOutput>(function);
-		}
+		private Dictionary<LogicalElementConnection<LogicalElement>, LogicalElementConnectionType> _connections;
 
 		#endregion
 
-		#region Public Interface
+		#region Public Properties
 
 		public int NumberElement
 		{
@@ -43,9 +25,57 @@ namespace ModelingLogicalSchemes.Components.Entities
 			{
 				return _numberElement;
 			}
+			set
+			{
+				_numberElement = value;
+			}
 		}
 
-		public void SetConnections(Dictionary<LogicalElementConnection<LogicalElement<TInput, TOutput>>, LogicalElementConnectionType> connections)
+		public Func<bool[], bool> Function
+		{
+			get
+			{
+				return _function;
+			}
+			set
+			{
+				_function = value;
+			}
+		}
+
+		public BrokenTypes BrokenType
+		{
+			get
+			{
+				return _brokenType;
+			}
+			set
+			{
+				_brokenType = value;
+			}
+		}
+
+		#endregion
+
+		#region Constructors
+
+		public LogicalElement()
+		{
+			//Empty.
+		}
+
+		public LogicalElement(Func<bool[], bool> function, int numberElement, BrokenTypes brokenType = BrokenTypes.Non)
+		{
+			_numberElement = numberElement;
+			_brokenType = brokenType;
+			_function = function;
+		}
+
+		#endregion
+
+		#region Public Interface
+
+		public void SetConnections(Dictionary<LogicalElementConnection<LogicalElement>, LogicalElementConnectionType> connections)
 		{
 			if (connections == null)
 			{
@@ -60,21 +90,52 @@ namespace ModelingLogicalSchemes.Components.Entities
 			_connections = connections;
 		}
 
-		public TOutput GetOutputValue(params TInput[] inputValues)
+		public bool GetOutputValue(params bool[] inputValues)
 		{
-			if (inputValues == null)
+			try
 			{
-				throw new ArgumentNullException("inputValues");
-			}
+				if (inputValues == null)
+				{
+					throw new ArgumentNullException("inputValues");
+				}
 
-			if (inputValues.Length == 0)
-			{
-				throw new ArgumentException("inputValues");
-			}
+				if (inputValues.Length == 0)
+				{
+					throw new ArgumentException("inputValues");
+				}
 
-			if (_isBrokenElement)
+				if (_brokenType != BrokenTypes.Non)
+				{
+					throw new Exception("Element is broken.");
+				}
+			}
+			catch (ArgumentNullException)
 			{
-				throw new Exception("Element is broken.");
+				throw;
+			}
+			catch (ArgumentException)
+			{
+				throw;
+			}
+			catch
+			{
+				switch (_brokenType)
+				{
+					case BrokenTypes.Non:
+						return _function(inputValues);
+
+					case BrokenTypes.NonSignal:
+						throw;
+
+					case BrokenTypes.IncorrectSignal:
+						return !_function(inputValues);
+
+					case BrokenTypes.ConstantSignal:
+						return default(bool);
+
+					default:
+						break;
+				}
 			}
 
 			return _function(inputValues);

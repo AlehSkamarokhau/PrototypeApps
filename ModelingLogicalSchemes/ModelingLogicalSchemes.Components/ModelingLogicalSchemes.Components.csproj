@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\LogicalElementsFactory.cs" />
-    <Compile Include="Common\LogicalFunctionsTypes.cs" />
+    <Compile Include="Common\FunctionFactory.cs" />
+    <Compile Include="Common\FunctionTypes.cs" />
+    <Compile Include="Common\LogicalElementBuilder.cs" />
+    <Compile Include="Entities\BrokenTypes.cs" />
     <Compile Include="Entities\LogicalElement.cs" />
     <Compile Include="Entities\LogicalElementConnection.cs" />
     <Compile Include="Entities\LogicalElementConnectionType.cs" />
