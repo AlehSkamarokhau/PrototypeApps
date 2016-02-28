@@ -45,6 +45,7 @@
     <Compile Include="Common\LogicalElementBuilder.cs" />
     <Compile Include="Entities\BrokenTypes.cs" />
     <Compile Include="Entities\LogicalElement.cs" />
+    <Compile Include="MagicalBlackBoxes\Interfaces\IBlackBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
