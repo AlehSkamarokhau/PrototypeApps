@@ -45,9 +45,6 @@
     <Compile Include="Common\LogicalElementBuilder.cs" />
     <Compile Include="Entities\BrokenTypes.cs" />
     <Compile Include="Entities\LogicalElement.cs" />
-    <Compile Include="Entities\LogicalElementConnection.cs" />
-    <Compile Include="Entities\LogicalElementConnectionType.cs" />
-    <Compile Include="Entities\LogicalElementsScheme.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -75,21 +75,6 @@ namespace ModelingLogicalSchemes.Components.Entities
 
 		#region Public Interface
 
-		public void SetConnections(Dictionary<LogicalElementConnection<LogicalElement>, LogicalElementConnectionType> connections)
-		{
-			if (connections == null)
-			{
-				throw new ArgumentNullException("connections");
-			}
-
-			if (connections.Count == 0)
-			{
-				throw new ArgumentException("connections");
-			}
-
-			_connections = connections;
-		}
-
 		public bool GetOutputValue(params bool[] inputValues)
 		{
 			try
