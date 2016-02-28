@@ -13,8 +13,6 @@ namespace ModelingLogicalSchemes.Components.Entities
 
 		private BrokenTypes _brokenType;
 
-		private Dictionary<LogicalElementConnection<LogicalElement>, LogicalElementConnectionType> _connections;
-
 		#endregion
 
 		#region Public Properties
