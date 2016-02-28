@@ -53,6 +53,7 @@
     <Compile Include="Entities\BrokenTypes.cs" />
     <Compile Include="Entities\LogicalElement.cs" />
     <Compile Include="Helpers\ConfigurationHelper.cs" />
+    <Compile Include="MagicalBlackBoxes\FirstBlackBox.cs" />
     <Compile Include="MagicalBlackBoxes\Interfaces\IBlackBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

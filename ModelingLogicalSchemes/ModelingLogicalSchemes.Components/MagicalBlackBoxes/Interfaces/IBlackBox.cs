@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+using ModelingLogicalSchemes.Components.Common;
 using ModelingLogicalSchemes.Components.Entities;
 
 namespace ModelingLogicalSchemes.Components.MagicalBlackBoxes.Interfaces
@@ -12,8 +13,9 @@ namespace ModelingLogicalSchemes.Components.MagicalBlackBoxes.Interfaces
 		/// <summary>
 		/// Sets the configuration.
 		/// </summary>
-		/// <param name="configuration">The configuration.</param>
-		void SetConfiguration(IDictionary<int, BrokenTypes> configuration);
+		/// <param name="configurationFunctions">The configuration functions.</param>
+		/// <param name="configurationBrokenTypes">The configuration broken types.</param>
+		void SetConfiguration(IDictionary<int, FunctionTypes> configurationFunctions, IDictionary<int, BrokenTypes> configurationBrokenTypes);
 
 		/// <summary>
 		/// Gets the output value.
