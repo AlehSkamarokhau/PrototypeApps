@@ -213,6 +213,8 @@ namespace ModelingLogicalSchemes.Components.MagicalBlackBoxes
 				throw new ArgumentException("length inputValues is not equal COUNT_INPUT_VALUES");
 			}
 
+			_elements = GetConfiguredLogicalElements(_configurationFunctions, _configurationBrokenTypes);
+
 			_inputValues = inputValues;
 
 			//TODO: Убрать китайский код.
