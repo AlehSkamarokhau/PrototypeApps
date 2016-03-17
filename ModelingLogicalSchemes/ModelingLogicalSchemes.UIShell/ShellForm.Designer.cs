@@ -34,7 +34,6 @@
 			this.dataGridViewManage = new System.Windows.Forms.DataGridView();
 			this.btnExit = new System.Windows.Forms.Button();
 			this.btnRun = new System.Windows.Forms.Button();
-			this.checkBoxGenerateInputValues = new System.Windows.Forms.CheckBox();
 			this.gbOutput = new System.Windows.Forms.GroupBox();
 			this.txtOutput = new System.Windows.Forms.TextBox();
 			this.gbInputValues = new System.Windows.Forms.GroupBox();
@@ -104,16 +103,6 @@
 			this.btnRun.Text = "Run";
 			this.btnRun.UseVisualStyleBackColor = true;
 			// 
-			// checkBoxGenerateInputValues
-			// 
-			this.checkBoxGenerateInputValues.AutoSize = true;
-			this.checkBoxGenerateInputValues.Location = new System.Drawing.Point(11, 256);
-			this.checkBoxGenerateInputValues.Name = "checkBoxGenerateInputValues";
-			this.checkBoxGenerateInputValues.Size = new System.Drawing.Size(130, 17);
-			this.checkBoxGenerateInputValues.TabIndex = 1;
-			this.checkBoxGenerateInputValues.Text = "Generate input values";
-			this.checkBoxGenerateInputValues.UseVisualStyleBackColor = true;
-			// 
 			// gbOutput
 			// 
 			this.gbOutput.Controls.Add(this.txtOutput);
@@ -138,7 +127,6 @@
 			// gbInputValues
 			// 
 			this.gbInputValues.Controls.Add(this.dataGridViewInputValues);
-			this.gbInputValues.Controls.Add(this.checkBoxGenerateInputValues);
 			this.gbInputValues.Controls.Add(this.btnExit);
 			this.gbInputValues.Controls.Add(this.btnRun);
 			this.gbInputValues.Location = new System.Drawing.Point(697, 273);
@@ -153,7 +141,7 @@
 			this.dataGridViewInputValues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewInputValues.Location = new System.Drawing.Point(6, 19);
 			this.dataGridViewInputValues.Name = "dataGridViewInputValues";
-			this.dataGridViewInputValues.Size = new System.Drawing.Size(406, 231);
+			this.dataGridViewInputValues.Size = new System.Drawing.Size(406, 254);
 			this.dataGridViewInputValues.TabIndex = 4;
 			// 
 			// ShellForm
@@ -174,7 +162,6 @@
 			this.gbOutput.ResumeLayout(false);
 			this.gbOutput.PerformLayout();
 			this.gbInputValues.ResumeLayout(false);
-			this.gbInputValues.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputValues)).EndInit();
 			this.ResumeLayout(false);
 
@@ -189,7 +176,6 @@
 		private System.Windows.Forms.TextBox txtOutput;
 		private System.Windows.Forms.Button btnExit;
 		private System.Windows.Forms.Button btnRun;
-		private System.Windows.Forms.CheckBox checkBoxGenerateInputValues;
 		private System.Windows.Forms.GroupBox gbInputValues;
 		private System.Windows.Forms.DataGridView dataGridViewManage;
 		private System.Windows.Forms.DataGridView dataGridViewInputValues;
