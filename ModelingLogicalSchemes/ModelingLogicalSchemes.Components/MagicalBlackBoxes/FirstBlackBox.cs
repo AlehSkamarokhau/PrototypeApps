@@ -182,6 +182,28 @@ namespace ModelingLogicalSchemes.Components.MagicalBlackBoxes
 		#region IBlackBox Members
 
 		/// <summary>
+		/// Gets the current values of inputs.
+		/// </summary>
+		/// <returns>
+		/// The current values of the inputs.
+		/// </returns>
+		public bool[] GetCurrentValuesOfInputs()
+		{
+			return _inputValues;
+		}
+
+		/// <summary>
+		/// Gets the current values of outputs.
+		/// </summary>
+		/// <returns>
+		/// The current values of the outputs.
+		/// </returns>
+		public bool[] GetCurrentValuesOfOutputs()
+		{
+			return _outputValues;
+		}
+
+		/// <summary>
 		/// Sets the configuration.
 		/// </summary>
 		/// <param name="configurationFunctions">The configuration functions.</param>
@@ -218,11 +240,7 @@ namespace ModelingLogicalSchemes.Components.MagicalBlackBoxes
 			_inputValues = inputValues;
 
 			//TODO: Убрать китайский код.
-
-			//HACK: Для того что бы учитывать что первый элемент это операция с тремя аргументами.
-			_outputValues[0] = _elements[0].GetOutputValue(inputValues[1], inputValues[2]);
-			_outputValues[0] = _elements[0].GetOutputValue(_outputValues[0], inputValues[3]);
-
+			_outputValues[0] = _elements[0].GetOutputValue(inputValues[1], inputValues[2], inputValues[3]);
 			_outputValues[1] = _elements[1].GetOutputValue(inputValues[3], inputValues[4]);
 			_outputValues[2] = _elements[2].GetOutputValue(_outputValues[1]);
 			_outputValues[3] = _elements[3].GetOutputValue(_outputValues[0], _outputValues[1]);

@@ -30,6 +30,18 @@ namespace ModelingLogicalSchemes.Components.Interfaces
 		void SetConfigurationToBlackBox(IDictionary<int, FunctionTypes> functionsElements, IDictionary<int, BrokenTypes> brokenElements);
 
 		/// <summary>
+		/// Gets the current values of inputs from black box.
+		/// </summary>
+		/// <returns>The current values of inputs from black box.</returns>
+		bool[] GetCurrentValuesOfInputsFromBlackBox();
+
+		/// <summary>
+		/// Gets the current values of outputs from black box.
+		/// </summary>
+		/// <returns>The current values of outputs from black box.</returns>
+		bool[] GetCurrentValuesOfOutputsFromBlackBox();
+
+		/// <summary>
 		/// Gets the output values from black box.
 		/// </summary>
 		/// <param name="inputValues">The input values.</param>

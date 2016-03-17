@@ -109,6 +109,28 @@ namespace ModelingLogicalSchemes.Components.Controllers
 		}
 
 		/// <summary>
+		/// Gets the current values of inputs from black box.
+		/// </summary>
+		/// <returns>
+		/// The current values of inputs from black box.
+		/// </returns>
+		public bool[] GetCurrentValuesOfInputsFromBlackBox()
+		{
+			return _blackBox.GetCurrentValuesOfInputs();
+		}
+
+		/// <summary>
+		/// Gets the current values of outputs from black box.
+		/// </summary>
+		/// <returns>
+		/// The current values of outputs from black box.
+		/// </returns>
+		public bool[] GetCurrentValuesOfOutputsFromBlackBox()
+		{
+			return _blackBox.GetCurrentValuesOfOutputs();
+		}
+
+		/// <summary>
 		/// Gets the output values from black box.
 		/// </summary>
 		/// <param name="inputValues">The input values.</param>
