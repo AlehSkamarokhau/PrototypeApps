@@ -84,6 +84,12 @@
   <ItemGroup>
     <None Include="Resources\SchemeFirstBlackBoxSmall.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModelingLogicalSchemes.Components\ModelingLogicalSchemes.Components.csproj">
+      <Project>{64a80198-de0f-424e-b81c-c00f0e034a68}</Project>
+      <Name>ModelingLogicalSchemes.Components</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

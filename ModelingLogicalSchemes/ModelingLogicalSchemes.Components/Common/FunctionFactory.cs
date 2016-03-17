@@ -2,85 +2,94 @@
 
 namespace ModelingLogicalSchemes.Components.Common
 {
-    public class FunctionFactory
-    {
-        #region Public Interface
+	public class FunctionFactory
+	{
+		#region Public Interface
 
-        public static Func<bool[], bool> GetFunction(FunctionTypes functionType)
-        {
-            switch (functionType)
-            {
-                case FunctionTypes.AND:
+		public static Func<bool[], bool> GetFunction(FunctionTypes functionType)
+		{
+			switch (functionType)
+			{
+				case FunctionTypes.NOT:
 
-                    Func<bool[], bool> functionAnd = delegate(bool[] inputValues)
-                    {
-                        bool resultValue = inputValues[0];
+					Func<bool[], bool> functionNot = delegate(bool[] inputValues)
+					{
+						return !inputValues[0];
+					};
 
-                        for (int i = 1; i < inputValues.Length; i++)
-                        {
-                            resultValue = resultValue & inputValues[i];
-                        }
+					return functionNot;
 
-                        return resultValue;
-                    };
+				case FunctionTypes.AND:
 
-                    return functionAnd;
+					Func<bool[], bool> functionAnd = delegate(bool[] inputValues)
+					{
+						bool resultValue = inputValues[0];
 
-                case FunctionTypes.OR:
+						for (int i = 1; i < inputValues.Length; i++)
+						{
+							resultValue = resultValue & inputValues[i];
+						}
 
-                    Func<bool[], bool> functionOr = delegate(bool[] inputValues)
-                    {
-                        bool resultValue = inputValues[0];
+						return resultValue;
+					};
 
-                        for (int i = 1; i < inputValues.Length; i++)
-                        {
-                            resultValue = resultValue | inputValues[i];
-                        }
+					return functionAnd;
 
-                        return resultValue;
-                    };
+				case FunctionTypes.OR:
 
-                    return functionOr;
+					Func<bool[], bool> functionOr = delegate(bool[] inputValues)
+					{
+						bool resultValue = inputValues[0];
 
-                case FunctionTypes.NOR:
+						for (int i = 1; i < inputValues.Length; i++)
+						{
+							resultValue = resultValue | inputValues[i];
+						}
 
-                    Func<bool[], bool> functionNOr = delegate(bool[] inputValues)
-                    {
-                        bool resultValue = inputValues[0];
+						return resultValue;
+					};
 
-                        for (int i = 1; i < inputValues.Length; i++)
-                        {
-                            resultValue = resultValue | inputValues[i];
-                        }
+					return functionOr;
 
-                        return !resultValue;
-                    };
+				case FunctionTypes.NOR:
 
-                    return functionNOr;
+					Func<bool[], bool> functionNOr = delegate(bool[] inputValues)
+					{
+						bool resultValue = inputValues[0];
 
-                case FunctionTypes.NXOR:
+						for (int i = 1; i < inputValues.Length; i++)
+						{
+							resultValue = resultValue | inputValues[i];
+						}
 
-                    Func<bool[], bool> functionNXOr = delegate(bool[] inputValues)
-                    {
-                        bool resultValue = inputValues[0];
+						return !resultValue;
+					};
 
-                        for (int i = 1; i < inputValues.Length; i++)
-                        {
-                            resultValue = resultValue ^ inputValues[i];
-                        }
+					return functionNOr;
 
-                        return !resultValue;
-                    };
+				case FunctionTypes.NXOR:
 
-                    return functionNXOr;
+					Func<bool[], bool> functionNXOr = delegate(bool[] inputValues)
+					{
+						bool resultValue = inputValues[0];
 
-                default:
-                    break;
-            }
+						for (int i = 1; i < inputValues.Length; i++)
+						{
+							resultValue = resultValue ^ inputValues[i];
+						}
 
-            return null;
-        }
+						return !resultValue;
+					};
 
-        #endregion
-    }
+					return functionNXOr;
+
+				default:
+					break;
+			}
+
+			return null;
+		}
+
+		#endregion
+	}
 }

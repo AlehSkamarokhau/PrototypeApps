@@ -1,10 +1,11 @@
 ﻿namespace ModelingLogicalSchemes.Components.Common
 {
-    public enum FunctionTypes
-    {
-        AND,
-        OR,
-        NOR,
-        NXOR
-    }
+	public enum FunctionTypes
+	{
+		NOT,
+		AND,
+		OR,
+		NOR,
+		NXOR
+	}
 }
