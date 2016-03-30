@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ModelingLogicalSchemes.UIShell
@@ -14,6 +8,28 @@ namespace ModelingLogicalSchemes.UIShell
 		public InformationForm()
 		{
 			InitializeComponent();
+		}
+
+		public void ShowInformation(string info)
+		{
+			if (String.IsNullOrWhiteSpace(info))
+			{
+				throw new ArgumentException("info");
+			}
+
+			txtInfo.Text = info;
+
+			Show();
+		}
+
+		private void btnClose_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
+		private void btnSave_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show("Sorry. This feature is not supported.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 	}
 }

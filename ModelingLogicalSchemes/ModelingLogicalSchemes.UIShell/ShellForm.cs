@@ -47,6 +47,8 @@ namespace ModelingLogicalSchemes.UIShell
 
 		private int[] _inputValues;
 
+		private int[] _outputValues;
+
 		#endregion
 
 		#region Private Properties
@@ -116,6 +118,23 @@ namespace ModelingLogicalSchemes.UIShell
 				}
 
 				_inputValues = value;
+			}
+		}
+
+		private int[] OutputValues
+		{
+			get
+			{
+				return _outputValues;
+			}
+			set
+			{
+				if (value == null)
+				{
+					throw new ArgumentNullException("value");
+				}
+
+				_outputValues = value;
 			}
 		}
 
@@ -260,6 +279,44 @@ namespace ModelingLogicalSchemes.UIShell
 			}
 		}
 
+		private bool[] ConvertValuesToBool(int[] values)
+		{
+			bool[] boolValues = new bool[values.Length];
+
+			for (int i = 0; i < values.Length; i++)
+			{
+				if (values[i] == 1)
+				{
+					boolValues[i] = true;
+				}
+				else if (values[i] == 0)
+				{
+					boolValues[i] = false;
+				}
+			}
+
+			return boolValues;
+		}
+
+		private int[] ConvertValuesToInt(bool[] values)
+		{
+			int[] intValues = new int[values.Length];
+
+			for (int i = 0; i < values.Length; i++)
+			{
+				if (values[i])
+				{
+					intValues[i] = 1;
+				}
+				else
+				{
+					intValues[i] = 0;
+				}
+			}
+
+			return intValues;
+		}
+
 		#endregion
 
 		#region Constructors
@@ -282,6 +339,21 @@ namespace ModelingLogicalSchemes.UIShell
 
 			SetToDataGridViewManage(FunctionConfiguration, BrokenConfiguration);
 			SetToDataGridViewInputValues(InputValues);
+		}
+
+		#endregion
+
+		#region Form Events Handlers
+
+		private void btnExit_Click(object sender, EventArgs e)
+		{
+			Close();
+			Dispose();
+		}
+
+		private void btnRun_Click(object sender, EventArgs e)
+		{
+			//TODO: Implement Button Run Click.
 		}
 
 		#endregion

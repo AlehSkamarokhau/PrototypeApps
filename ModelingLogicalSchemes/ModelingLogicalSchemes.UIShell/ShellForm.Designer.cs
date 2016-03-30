@@ -93,6 +93,7 @@
 			this.btnExit.TabIndex = 3;
 			this.btnExit.Text = "Exit";
 			this.btnExit.UseVisualStyleBackColor = true;
+			this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
 			// 
 			// btnRun
 			// 
@@ -102,6 +103,7 @@
 			this.btnRun.TabIndex = 2;
 			this.btnRun.Text = "Run";
 			this.btnRun.UseVisualStyleBackColor = true;
+			this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
 			// 
 			// gbOutput
 			// 

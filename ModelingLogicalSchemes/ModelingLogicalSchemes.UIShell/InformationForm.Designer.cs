@@ -53,6 +53,7 @@
 			this.btnClose.TabIndex = 1;
 			this.btnClose.Text = "Close";
 			this.btnClose.UseVisualStyleBackColor = true;
+			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
 			// 
 			// btnSave
 			// 
@@ -62,6 +63,7 @@
 			this.btnSave.TabIndex = 2;
 			this.btnSave.Text = "Save";
 			this.btnSave.UseVisualStyleBackColor = true;
+			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			// 
 			// InformationForm
 			// 
