@@ -25,6 +25,7 @@ namespace ModelingLogicalSchemes.UIShell
 		private void btnClose_Click(object sender, EventArgs e)
 		{
 			Close();
+			Dispose();
 		}
 
 		private void btnSave_Click(object sender, EventArgs e)

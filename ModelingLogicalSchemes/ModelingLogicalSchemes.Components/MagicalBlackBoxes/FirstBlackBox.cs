@@ -249,7 +249,7 @@ namespace ModelingLogicalSchemes.Components.MagicalBlackBoxes
 			_outputValues[6] = _elements[6].GetOutputValue(_outputValues[5], _outputValues[2]);
 			_outputValues[7] = _elements[7].GetOutputValue(_outputValues[4], _outputValues[6]);
 
-			return new bool[] { _outputValues[COUNT_ELEMENTS] };
+			return new bool[] { _outputValues[COUNT_ELEMENTS - 1] };
 		}
 
 		#endregion

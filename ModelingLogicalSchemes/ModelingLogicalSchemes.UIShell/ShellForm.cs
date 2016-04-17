@@ -317,6 +317,47 @@ namespace ModelingLogicalSchemes.UIShell
 			return intValues;
 		}
 
+		private bool[] GetInputValuesFromDataGridViewInputValues()
+		{
+			int[] rawResult = new int[GetInitializeInputValues().Length];
+
+			for (int i = 0; i < rawResult.Length; i++)
+			{
+				rawResult[i] = (int)dataGridViewInputValues.Rows[i].Cells[1].Value;
+			}
+
+			return ConvertValuesToBool(rawResult);
+		}
+
+		private string GetInformationalMsgWithOutputValues(params int[] outputValues)
+		{
+			StringBuilder strBuild = new StringBuilder();
+
+			strBuild.Append("Values On Outputs of Elements\r\n");
+			strBuild.AppendLine();
+
+			int[] valsOnOutputs = ConvertValuesToInt(BlackBoxController.GetCurrentValuesOfOutputsFromBlackBox());
+
+			for (int i = 0; i < valsOnOutputs.Length; i++)
+			{
+				strBuild.AppendFormat("#{0} = {1}\r\n", 1 + i, valsOnOutputs[i]);
+			}
+
+			strBuild.AppendLine();
+
+			strBuild.Append("Output Values\r\n");
+			strBuild.AppendLine();
+
+			for (int i = 0; i < outputValues.Length; i++)
+			{
+				strBuild.AppendFormat("#{0} = {1}\r\n", 1 + i, outputValues[i]);
+			}
+
+			strBuild.AppendLine();
+
+			return strBuild.ToString();
+		}
+
 		#endregion
 
 		#region Constructors
@@ -353,7 +394,15 @@ namespace ModelingLogicalSchemes.UIShell
 
 		private void btnRun_Click(object sender, EventArgs e)
 		{
-			//TODO: Implement Button Run Click.
+			BlackBoxController.SetConfigurationToBlackBox(FunctionConfiguration, BrokenConfiguration);
+
+			OutputValues = ConvertValuesToInt(BlackBoxController.GetOutputValuesFromBlackBox(GetInputValuesFromDataGridViewInputValues()));
+
+			string infoMsgOutputVals = GetInformationalMsgWithOutputValues(OutputValues);
+			txtOutput.Text += String.Format("\r\n {0} \r\n", infoMsgOutputVals);
+
+			InformationForm infoFrm = new InformationForm();
+			infoFrm.ShowInformation(infoMsgOutputVals);
 		}
 
 		#endregion
