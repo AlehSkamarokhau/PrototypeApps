@@ -142,6 +142,8 @@ namespace ModelingLogicalSchemes.UIShell
 
 		#region Private Members
 
+		#region Initialize
+
 		private void Initialize()
 		{
 			BlackBoxController = DependencyResolver.Resolve<IBlackBoxController>();
@@ -190,6 +192,10 @@ namespace ModelingLogicalSchemes.UIShell
 			dataGridViewInputValues.Columns.Add(inputValuesColumn);
 		}
 
+		#endregion
+
+		#region Elements Configuration
+
 		private IDictionary<int, FunctionTypes> GetFunctionElementsConfiguration()
 		{
 			Dictionary<int, FunctionTypes> functionElementsConfiguration = new Dictionary<int, FunctionTypes>(8);
@@ -222,42 +228,36 @@ namespace ModelingLogicalSchemes.UIShell
 			return brokenElementsConfiguration;
 		}
 
-		private int[] GetInitializeInputValues()
+		private IDictionary<int, FunctionTypes> GetCurrentFunctionElementsConfiguration()
 		{
-			int[] firstInputValues = new int[] { 1, 1, 1, 1, 1 };
-			return firstInputValues;
-		}
+			IDictionary<int, FunctionTypes> result = new Dictionary<int, FunctionTypes>();
 
-		private void PrintToOutputDictionaryConfiguration<TValue>(IDictionary<int, TValue> configuration, string nameConfiguration)
-		{
-			StringBuilder buildOutput = new StringBuilder();
-
-			buildOutput.AppendFormat("Read {0}:{1}{1}", nameConfiguration, Environment.NewLine);
-
-			for (int i = 1; i <= configuration.Keys.Count; i++)
+			foreach (DataGridViewRow currentRow in dataGridViewManage.Rows)
 			{
-				buildOutput.AppendFormat("Num. El.: {0}; {1}: {2};{3}{3}", i, nameConfiguration, configuration[i].ToString(), Environment.NewLine);
+				result.Add((int)currentRow.Cells[0].Value, (FunctionTypes)currentRow.Cells[1].Value);
 			}
 
-			txtOutput.Text += buildOutput.ToString();
+			FunctionConfiguration = result;
+
+			return result;
 		}
 
-		private void PrintToOutputInputValues(int[] inputValues)
+		private IDictionary<int, BrokenTypes> GetCurrentBrokenElementsConfiguration()
 		{
-			StringBuilder buildOutput = new StringBuilder();
+			IDictionary<int, BrokenTypes> result = new Dictionary<int, BrokenTypes>();
 
-			buildOutput.AppendFormat("Input Values: {0}{0}", Environment.NewLine);
-
-			for (int i = 0; i < inputValues.Length; i++)
+			foreach (DataGridViewRow currentRow in dataGridViewManage.Rows)
 			{
-				buildOutput.AppendFormat("Num. Input: {0}; Value: {1};{2}{2}", 1 + i, inputValues[i], Environment.NewLine);
+				result.Add((int)currentRow.Cells[0].Value, (BrokenTypes)currentRow.Cells[2].Value);
 			}
 
-			txtOutput.Text += buildOutput.ToString();
+			BrokenConfiguration = result;
+
+			return result;
 		}
 
 		private void SetToDataGridViewManage(IDictionary<int, FunctionTypes> functionConfiguration,
-											 IDictionary<int, BrokenTypes> brokenConfiguration)
+									 IDictionary<int, BrokenTypes> brokenConfiguration)
 		{
 			dataGridViewManage.Rows.Clear();
 
@@ -269,6 +269,30 @@ namespace ModelingLogicalSchemes.UIShell
 			}
 		}
 
+		#endregion
+
+		#region Input Values
+
+		private int[] GetInitializeInputValues()
+		{
+			int[] firstInputValues = new int[] { 1, 1, 1, 1, 1 };
+			return firstInputValues;
+		}
+
+		private bool[] GetInputValuesFromDataGridViewInputValues()
+		{
+			int[] rawResult = new int[GetInitializeInputValues().Length];
+
+			for (int i = 0; i < rawResult.Length; i++)
+			{
+				rawResult[i] = (int)dataGridViewInputValues.Rows[i].Cells[1].Value;
+			}
+
+			InputValues = rawResult;
+
+			return ConvertValuesToBool(rawResult);
+		}
+
 		private void SetToDataGridViewInputValues(int[] inputValues)
 		{
 			dataGridViewInputValues.Rows.Clear();
@@ -278,6 +302,10 @@ namespace ModelingLogicalSchemes.UIShell
 				dataGridViewInputValues.Rows.Add((1 + i), inputValues[i]);
 			}
 		}
+
+		#endregion
+
+		#region Converting Input Values
 
 		private bool[] ConvertValuesToBool(int[] values)
 		{
@@ -317,17 +345,39 @@ namespace ModelingLogicalSchemes.UIShell
 			return intValues;
 		}
 
-		private bool[] GetInputValuesFromDataGridViewInputValues()
-		{
-			int[] rawResult = new int[GetInitializeInputValues().Length];
+		#endregion
 
-			for (int i = 0; i < rawResult.Length; i++)
+		#region Print To Output
+
+		private void PrintToOutputDictionaryConfiguration<TValue>(IDictionary<int, TValue> configuration, string nameConfiguration)
+		{
+			StringBuilder buildOutput = new StringBuilder();
+
+			buildOutput.AppendFormat("Read {0}:{1}{1}", nameConfiguration, Environment.NewLine);
+
+			for (int i = 1; i <= configuration.Keys.Count; i++)
 			{
-				rawResult[i] = (int)dataGridViewInputValues.Rows[i].Cells[1].Value;
+				buildOutput.AppendFormat("Num. El.: {0}; {1}: {2};{3}{3}", i, nameConfiguration, configuration[i].ToString(), Environment.NewLine);
 			}
 
-			return ConvertValuesToBool(rawResult);
+			txtOutput.Text += buildOutput.ToString();
 		}
+
+		private void PrintToOutputInputValues(int[] inputValues)
+		{
+			StringBuilder buildOutput = new StringBuilder();
+
+			buildOutput.AppendFormat("Input Values: {0}{0}", Environment.NewLine);
+
+			for (int i = 0; i < inputValues.Length; i++)
+			{
+				buildOutput.AppendFormat("Num. Input: {0}; Value: {1};{2}{2}", 1 + i, inputValues[i], Environment.NewLine);
+			}
+
+			txtOutput.Text += buildOutput.ToString();
+		}
+
+		#endregion
 
 		private string GetInformationalMsgWithOutputValues(params int[] outputValues)
 		{
@@ -403,6 +453,28 @@ namespace ModelingLogicalSchemes.UIShell
 
 			InformationForm infoFrm = new InformationForm();
 			infoFrm.ShowInformation(infoMsgOutputVals);
+		}
+
+		private void dataGridViewManage_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+		{
+			BlackBoxController.SetConfigurationToBlackBox(GetCurrentFunctionElementsConfiguration(), GetCurrentBrokenElementsConfiguration());
+
+			if (dataGridViewManage.Columns[e.ColumnIndex].Name == BROKEN_TYPE_COLUMN_HEADER_TEXT)
+			{
+				if ((BrokenTypes)dataGridViewManage.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != BrokenTypes.Non)
+				{
+					dataGridViewManage.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
+				}
+				else
+				{
+					dataGridViewManage.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+				}
+			}
+		}
+
+		private void dataGridViewInputValues_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+		{
+			InputValues = ConvertValuesToInt(GetInputValuesFromDataGridViewInputValues());
 		}
 
 		#endregion

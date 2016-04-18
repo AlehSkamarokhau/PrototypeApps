@@ -84,6 +84,7 @@
 			this.dataGridViewManage.Name = "dataGridViewManage";
 			this.dataGridViewManage.Size = new System.Drawing.Size(406, 221);
 			this.dataGridViewManage.TabIndex = 0;
+			this.dataGridViewManage.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewManage_CellValueChanged);
 			// 
 			// btnExit
 			// 
@@ -145,6 +146,7 @@
 			this.dataGridViewInputValues.Name = "dataGridViewInputValues";
 			this.dataGridViewInputValues.Size = new System.Drawing.Size(406, 254);
 			this.dataGridViewInputValues.TabIndex = 4;
+			this.dataGridViewInputValues.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewInputValues_CellValueChanged);
 			// 
 			// ShellForm
 			// 

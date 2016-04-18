@@ -108,7 +108,8 @@ namespace ModelingLogicalSchemes.Components.Entities
 						return _function(inputValues);
 
 					case BrokenTypes.NonSignal:
-						throw;
+						//throw;
+						return default(bool);
 
 					case BrokenTypes.IncorrectSignal:
 						return !_function(inputValues);
