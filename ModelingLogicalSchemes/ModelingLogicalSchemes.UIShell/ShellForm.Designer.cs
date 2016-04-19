@@ -38,6 +38,9 @@
 			this.txtOutput = new System.Windows.Forms.TextBox();
 			this.gbInputValues = new System.Windows.Forms.GroupBox();
 			this.dataGridViewInputValues = new System.Windows.Forms.DataGridView();
+			this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
+			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.inputValuesGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.gbBlackBox.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBlackBox)).BeginInit();
 			this.gbManage.SuspendLayout();
@@ -45,12 +48,13 @@
 			this.gbOutput.SuspendLayout();
 			this.gbInputValues.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputValues)).BeginInit();
+			this.mainMenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// gbBlackBox
 			// 
 			this.gbBlackBox.Controls.Add(this.pictureBlackBox);
-			this.gbBlackBox.Location = new System.Drawing.Point(12, 12);
+			this.gbBlackBox.Location = new System.Drawing.Point(12, 28);
 			this.gbBlackBox.Name = "gbBlackBox";
 			this.gbBlackBox.Size = new System.Drawing.Size(679, 310);
 			this.gbBlackBox.TabIndex = 0;
@@ -70,7 +74,7 @@
 			// gbManage
 			// 
 			this.gbManage.Controls.Add(this.dataGridViewManage);
-			this.gbManage.Location = new System.Drawing.Point(697, 12);
+			this.gbManage.Location = new System.Drawing.Point(697, 28);
 			this.gbManage.Name = "gbManage";
 			this.gbManage.Size = new System.Drawing.Size(418, 255);
 			this.gbManage.TabIndex = 1;
@@ -109,7 +113,7 @@
 			// gbOutput
 			// 
 			this.gbOutput.Controls.Add(this.txtOutput);
-			this.gbOutput.Location = new System.Drawing.Point(12, 328);
+			this.gbOutput.Location = new System.Drawing.Point(12, 344);
 			this.gbOutput.Name = "gbOutput";
 			this.gbOutput.Size = new System.Drawing.Size(679, 275);
 			this.gbOutput.TabIndex = 2;
@@ -132,7 +136,7 @@
 			this.gbInputValues.Controls.Add(this.dataGridViewInputValues);
 			this.gbInputValues.Controls.Add(this.btnExit);
 			this.gbInputValues.Controls.Add(this.btnRun);
-			this.gbInputValues.Location = new System.Drawing.Point(697, 273);
+			this.gbInputValues.Location = new System.Drawing.Point(697, 289);
 			this.gbInputValues.Name = "gbInputValues";
 			this.gbInputValues.Size = new System.Drawing.Size(418, 330);
 			this.gbInputValues.TabIndex = 3;
@@ -148,15 +152,43 @@
 			this.dataGridViewInputValues.TabIndex = 4;
 			this.dataGridViewInputValues.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewInputValues_CellValueChanged);
 			// 
+			// mainMenuStrip
+			// 
+			this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolsToolStripMenuItem});
+			this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+			this.mainMenuStrip.Name = "mainMenuStrip";
+			this.mainMenuStrip.Size = new System.Drawing.Size(1127, 24);
+			this.mainMenuStrip.TabIndex = 4;
+			this.mainMenuStrip.Text = "menuStrip1";
+			// 
+			// toolsToolStripMenuItem
+			// 
+			this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.inputValuesGeneratorToolStripMenuItem});
+			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+			this.toolsToolStripMenuItem.Text = "Tools";
+			// 
+			// inputValuesGeneratorToolStripMenuItem
+			// 
+			this.inputValuesGeneratorToolStripMenuItem.Name = "inputValuesGeneratorToolStripMenuItem";
+			this.inputValuesGeneratorToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+			this.inputValuesGeneratorToolStripMenuItem.Text = "Input Values Generator";
+			// 
 			// ShellForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1127, 615);
+			this.ClientSize = new System.Drawing.Size(1127, 630);
 			this.Controls.Add(this.gbInputValues);
 			this.Controls.Add(this.gbOutput);
 			this.Controls.Add(this.gbManage);
 			this.Controls.Add(this.gbBlackBox);
+			this.Controls.Add(this.mainMenuStrip);
+			this.MainMenuStrip = this.mainMenuStrip;
+			this.MaximumSize = new System.Drawing.Size(1143, 668);
+			this.MinimumSize = new System.Drawing.Size(1143, 668);
 			this.Name = "ShellForm";
 			this.Text = "Shell";
 			this.gbBlackBox.ResumeLayout(false);
@@ -167,7 +199,10 @@
 			this.gbOutput.PerformLayout();
 			this.gbInputValues.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputValues)).EndInit();
+			this.mainMenuStrip.ResumeLayout(false);
+			this.mainMenuStrip.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -183,6 +218,9 @@
 		private System.Windows.Forms.GroupBox gbInputValues;
 		private System.Windows.Forms.DataGridView dataGridViewManage;
 		private System.Windows.Forms.DataGridView dataGridViewInputValues;
+		private System.Windows.Forms.MenuStrip mainMenuStrip;
+		private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem inputValuesGeneratorToolStripMenuItem;
 	}
 }
 
