@@ -477,6 +477,12 @@ namespace ModelingLogicalSchemes.UIShell
 			InputValues = ConvertValuesToInt(GetInputValuesFromDataGridViewInputValues());
 		}
 
+		private void inputValuesGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			InputValuesGeneratorForm valGeneratorFrm = new InputValuesGeneratorForm();
+			valGeneratorFrm.Show();
+		}
+
 		#endregion
 	}
 }

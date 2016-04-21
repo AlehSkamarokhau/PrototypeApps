@@ -74,7 +74,14 @@ namespace ModelingLogicalSchemes.Components.Helpers
 
 				for (int i = 0; i < rawInputSymbols.Length; i++)
 				{
-					inputSymbols[i] = Convert.ToBoolean(rawInputSymbols[i]);
+					if (rawInputSymbols[i] == '0')
+					{
+						inputSymbols[i] = false;
+					}
+					else if (rawInputSymbols[i] == '1')
+					{
+						inputSymbols[i] = true;
+					}
 				}
 
 				inputValues.Add(inputSymbols);

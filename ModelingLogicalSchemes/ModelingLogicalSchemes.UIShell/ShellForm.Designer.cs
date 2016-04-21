@@ -175,6 +175,7 @@
 			this.inputValuesGeneratorToolStripMenuItem.Name = "inputValuesGeneratorToolStripMenuItem";
 			this.inputValuesGeneratorToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
 			this.inputValuesGeneratorToolStripMenuItem.Text = "Input Values Generator";
+			this.inputValuesGeneratorToolStripMenuItem.Click += new System.EventHandler(this.inputValuesGeneratorToolStripMenuItem_Click);
 			// 
 			// ShellForm
 			// 
