@@ -31,16 +31,13 @@
 			this.lblNumberElementInputs = new System.Windows.Forms.Label();
 			this.txtNumberElementInputs = new System.Windows.Forms.TextBox();
 			this.btnGenerate = new System.Windows.Forms.Button();
-			this.lblInputValues = new System.Windows.Forms.Label();
+			this.lblResults = new System.Windows.Forms.Label();
 			this.dataGridViewResult = new System.Windows.Forms.DataGridView();
 			this.btnClose = new System.Windows.Forms.Button();
 			this.lblGenerateMode = new System.Windows.Forms.Label();
 			this.cmbBoxGenerateMode = new System.Windows.Forms.ComboBox();
 			this.btnRunTestScheme = new System.Windows.Forms.Button();
-			this.lblOutPutValues = new System.Windows.Forms.Label();
-			this.dataGridViewOutputValues = new System.Windows.Forms.DataGridView();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewResult)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridViewOutputValues)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lblNumberElementInputs
@@ -69,21 +66,21 @@
 			this.btnGenerate.UseVisualStyleBackColor = true;
 			this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
 			// 
-			// lblInputValues
+			// lblResults
 			// 
-			this.lblInputValues.AutoSize = true;
-			this.lblInputValues.Location = new System.Drawing.Point(12, 66);
-			this.lblInputValues.Name = "lblInputValues";
-			this.lblInputValues.Size = new System.Drawing.Size(66, 13);
-			this.lblInputValues.TabIndex = 3;
-			this.lblInputValues.Text = "Input Values";
+			this.lblResults.AutoSize = true;
+			this.lblResults.Location = new System.Drawing.Point(12, 66);
+			this.lblResults.Name = "lblResults";
+			this.lblResults.Size = new System.Drawing.Size(42, 13);
+			this.lblResults.TabIndex = 3;
+			this.lblResults.Text = "Results";
 			// 
 			// dataGridViewResult
 			// 
 			this.dataGridViewResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewResult.Location = new System.Drawing.Point(12, 82);
 			this.dataGridViewResult.Name = "dataGridViewResult";
-			this.dataGridViewResult.Size = new System.Drawing.Size(626, 232);
+			this.dataGridViewResult.Size = new System.Drawing.Size(626, 495);
 			this.dataGridViewResult.TabIndex = 4;
 			// 
 			// btnClose
@@ -107,10 +104,6 @@
 			// cmbBoxGenerateMode
 			// 
 			this.cmbBoxGenerateMode.FormattingEnabled = true;
-			this.cmbBoxGenerateMode.Items.AddRange(new object[] {
-            "None",
-            "Minimal Complexity",
-            "Minimal Time"});
 			this.cmbBoxGenerateMode.Location = new System.Drawing.Point(147, 35);
 			this.cmbBoxGenerateMode.Name = "cmbBoxGenerateMode";
 			this.cmbBoxGenerateMode.Size = new System.Drawing.Size(121, 21);
@@ -125,43 +118,23 @@
 			this.btnRunTestScheme.Text = "Run Test Scheme";
 			this.btnRunTestScheme.UseVisualStyleBackColor = true;
 			// 
-			// lblOutPutValues
-			// 
-			this.lblOutPutValues.AutoSize = true;
-			this.lblOutPutValues.Location = new System.Drawing.Point(12, 317);
-			this.lblOutPutValues.Name = "lblOutPutValues";
-			this.lblOutPutValues.Size = new System.Drawing.Size(74, 13);
-			this.lblOutPutValues.TabIndex = 9;
-			this.lblOutPutValues.Text = "Output Values";
-			// 
-			// dataGridViewOutputValues
-			// 
-			this.dataGridViewOutputValues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridViewOutputValues.Location = new System.Drawing.Point(12, 333);
-			this.dataGridViewOutputValues.Name = "dataGridViewOutputValues";
-			this.dataGridViewOutputValues.Size = new System.Drawing.Size(626, 232);
-			this.dataGridViewOutputValues.TabIndex = 10;
-			// 
 			// InputValuesGeneratorForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(653, 626);
-			this.Controls.Add(this.dataGridViewOutputValues);
-			this.Controls.Add(this.lblOutPutValues);
 			this.Controls.Add(this.btnRunTestScheme);
 			this.Controls.Add(this.cmbBoxGenerateMode);
 			this.Controls.Add(this.lblGenerateMode);
 			this.Controls.Add(this.btnClose);
 			this.Controls.Add(this.dataGridViewResult);
-			this.Controls.Add(this.lblInputValues);
+			this.Controls.Add(this.lblResults);
 			this.Controls.Add(this.btnGenerate);
 			this.Controls.Add(this.txtNumberElementInputs);
 			this.Controls.Add(this.lblNumberElementInputs);
 			this.Name = "InputValuesGeneratorForm";
 			this.Text = "Input Values Generator";
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewResult)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridViewOutputValues)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -172,13 +145,11 @@
 		private System.Windows.Forms.Label lblNumberElementInputs;
 		private System.Windows.Forms.TextBox txtNumberElementInputs;
 		private System.Windows.Forms.Button btnGenerate;
-		private System.Windows.Forms.Label lblInputValues;
+		private System.Windows.Forms.Label lblResults;
 		private System.Windows.Forms.DataGridView dataGridViewResult;
 		private System.Windows.Forms.Button btnClose;
 		private System.Windows.Forms.Label lblGenerateMode;
 		private System.Windows.Forms.ComboBox cmbBoxGenerateMode;
 		private System.Windows.Forms.Button btnRunTestScheme;
-		private System.Windows.Forms.Label lblOutPutValues;
-		private System.Windows.Forms.DataGridView dataGridViewOutputValues;
 	}
 }

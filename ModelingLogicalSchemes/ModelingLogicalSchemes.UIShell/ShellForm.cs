@@ -228,7 +228,7 @@ namespace ModelingLogicalSchemes.UIShell
 			return brokenElementsConfiguration;
 		}
 
-		private IDictionary<int, FunctionTypes> GetCurrentFunctionElementsConfiguration()
+		public IDictionary<int, FunctionTypes> GetCurrentFunctionElementsConfiguration()
 		{
 			IDictionary<int, FunctionTypes> result = new Dictionary<int, FunctionTypes>();
 
@@ -242,7 +242,7 @@ namespace ModelingLogicalSchemes.UIShell
 			return result;
 		}
 
-		private IDictionary<int, BrokenTypes> GetCurrentBrokenElementsConfiguration()
+		public IDictionary<int, BrokenTypes> GetCurrentBrokenElementsConfiguration()
 		{
 			IDictionary<int, BrokenTypes> result = new Dictionary<int, BrokenTypes>();
 
@@ -479,7 +479,7 @@ namespace ModelingLogicalSchemes.UIShell
 
 		private void inputValuesGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			InputValuesGeneratorForm valGeneratorFrm = new InputValuesGeneratorForm();
+			InputValuesGeneratorForm valGeneratorFrm = new InputValuesGeneratorForm(this);
 			valGeneratorFrm.Show();
 		}
 
