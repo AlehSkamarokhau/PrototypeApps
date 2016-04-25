@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using ModelingLogicalSchemes.Components.Common;
@@ -279,7 +275,7 @@ namespace ModelingLogicalSchemes.UIShell
 			return firstInputValues;
 		}
 
-		private bool[] GetInputValuesFromDataGridViewInputValues()
+		public bool[] GetInputValuesFromDataGridViewInputValues()
 		{
 			int[] rawResult = new int[GetInitializeInputValues().Length];
 

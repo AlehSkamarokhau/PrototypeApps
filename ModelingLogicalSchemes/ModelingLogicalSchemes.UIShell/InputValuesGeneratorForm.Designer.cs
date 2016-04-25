@@ -91,6 +91,7 @@
 			this.btnClose.TabIndex = 5;
 			this.btnClose.Text = "Close";
 			this.btnClose.UseVisualStyleBackColor = true;
+			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
 			// 
 			// lblGenerateMode
 			// 
@@ -117,6 +118,7 @@
 			this.btnRunTestScheme.TabIndex = 8;
 			this.btnRunTestScheme.Text = "Run Test Scheme";
 			this.btnRunTestScheme.UseVisualStyleBackColor = true;
+			this.btnRunTestScheme.Click += new System.EventHandler(this.btnRunTestScheme_Click);
 			// 
 			// InputValuesGeneratorForm
 			// 

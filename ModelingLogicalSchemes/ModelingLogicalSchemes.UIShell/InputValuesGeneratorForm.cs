@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+
 using ModelingLogicalSchemes.Components.Common.DI;
 using ModelingLogicalSchemes.Components.Helpers;
 using ModelingLogicalSchemes.Components.Interfaces;
@@ -87,43 +84,50 @@ namespace ModelingLogicalSchemes.UIShell
 		private void SetToDataGridViewResult(IDictionary<bool[], bool[]> results)
 		{
 			InitializeDataGridViewResult(results.First().Key.Length, results.First().Value.Length);
-
 			dataGridViewResult.Rows.Clear();
 
-			List<int[]> res = new List<int[]>();
+			List<int[]> result = new List<int[]>();
 
 			foreach (KeyValuePair<bool[], bool[]> item in results)
 			{
-				int[] prntRes = new int[item.Key.Length + item.Value.Length];
+				int[] currentRes = new int[item.Key.Length + item.Value.Length];
 
 				for (int i = 0; i < item.Key.Length; i++)
 				{
 					if (item.Key[i])
 					{
-						prntRes[i] = 1;
+						currentRes[i] = 1;
 					}
 					else
 					{
-						prntRes[i] = 0;
+						currentRes[i] = 0;
 					}
 				}
 
-				for (int i = item.Key.Length; i < item.Value.Length; i++)
+				for (int i = 0; i < item.Value.Length; i++)
 				{
-					if (item.Key[i])
+					if (item.Value[i])
 					{
-						prntRes[i] = 1;
+						currentRes[item.Key.Length + i] = 1;
 					}
 					else
 					{
-						prntRes[i] = 0;
+						currentRes[item.Key.Length + i] = 0;
 					}
 				}
 
-				res.Add(prntRes);
+				result.Add(currentRes);
 			}
 
-			dataGridViewResult.DataSource = res;
+			for (int i = 0; i < result.Count; i++)
+			{
+				dataGridViewResult.Rows.Add();
+
+				for (int j = 0; j < result[i].Length; j++)
+				{
+					dataGridViewResult.Rows[i].Cells[j].Value = result[i][j];
+				}
+			}
 		}
 
 		private IList<int[]> ConvertToIntCollection(IList<bool[]> boolCollection)
@@ -169,11 +173,16 @@ namespace ModelingLogicalSchemes.UIShell
 
 		#endregion
 
+		#region Constructor
+
 		public InputValuesGeneratorForm(ShellForm shellForm)
 		{
 			InitializeComponent();
 
 			ShellForm = shellForm;
+
+			txtNumberElementInputs.Text = ShellForm.GetInputValuesFromDataGridViewInputValues().Length.ToString();
+			txtNumberElementInputs.Enabled = false;
 
 			cmbBoxGenerateMode.Items.Add(GENERATE_MODE_NONE);
 			cmbBoxGenerateMode.Items.Add(GENERATE_MODE_MINIMAL_COMPLEXITY);
@@ -182,6 +191,10 @@ namespace ModelingLogicalSchemes.UIShell
 			cmbBoxGenerateMode.Text = GENERATE_MODE_MINIMAL_COMPLEXITY;
 			cmbBoxGenerateMode.Enabled = false;
 		}
+
+		#endregion
+
+		#region Events Handlers
 
 		private void btnGenerate_Click(object sender, EventArgs e)
 		{
@@ -202,7 +215,7 @@ namespace ModelingLogicalSchemes.UIShell
 
 				foreach (KeyValuePair<bool[], bool[]> currentRawResult in rawResults)
 				{
-					if (!result.Values.Contains(currentRawResult.Value))
+					if (GetCountValuesInCollection(currentRawResult.Value, result.Values) == 0)
 					{
 						result.Add(currentRawResult);
 					}
@@ -211,5 +224,18 @@ namespace ModelingLogicalSchemes.UIShell
 				SetToDataGridViewResult(result);
 			}
 		}
+
+		private void btnClose_Click(object sender, EventArgs e)
+		{
+			this.Close();
+			this.Dispose();
+		}
+
+		private void btnRunTestScheme_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show("Sorry. This feature is not supported.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		#endregion
 	}
 }
