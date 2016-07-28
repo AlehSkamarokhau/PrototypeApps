@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedCSharpPart2", "AdvancedCSharpPart2\AdvancedCSharpPart2.csproj", "{E2AA76CF-DFDE-43F4-BF90-1639A57FFEF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedCSharpPart2.Tests", "AdvancedCSharpPart2.Tests\AdvancedCSharpPart2.Tests.csproj", "{F54B6D4D-3C9B-41B4-865A-212121821683}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{E2AA76CF-DFDE-43F4-BF90-1639A57FFEF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2AA76CF-DFDE-43F4-BF90-1639A57FFEF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2AA76CF-DFDE-43F4-BF90-1639A57FFEF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F54B6D4D-3C9B-41B4-865A-212121821683}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F54B6D4D-3C9B-41B4-865A-212121821683}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F54B6D4D-3C9B-41B4-865A-212121821683}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F54B6D4D-3C9B-41B4-865A-212121821683}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

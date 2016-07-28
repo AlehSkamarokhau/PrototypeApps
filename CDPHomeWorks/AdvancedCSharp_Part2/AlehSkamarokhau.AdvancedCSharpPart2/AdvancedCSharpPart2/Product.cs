@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace AdvancedCSharpPart2
 {
-	public struct Product : IFormattable, IComparable, IComparable<Product>, IEquatable<Product>
+	[Serializable]
+	public struct Product : IFormattable, IComparable, ISerializable, IComparable<Product>, IEquatable<Product>
 	{
 		#region Private Fields
 
@@ -52,6 +54,13 @@ namespace AdvancedCSharpPart2
 			_count = count;
 		}
 
+		public Product(SerializationInfo info, StreamingContext context)
+		{
+			_name = info.GetString("Name");
+			_price = info.GetDecimal("Price");
+			_count = info.GetUInt32("Count");
+		}
+
 		#endregion
 
 		#region ICompareble Members
@@ -95,7 +104,7 @@ namespace AdvancedCSharpPart2
 
 		public override string ToString()
 		{
-			return String.Format(CultureInfo.CurrentCulture, "Name = {0}, Price = {1:C}, Count = {2}", _name, _price.ToString(), _count.ToString());
+			return String.Format(CultureInfo.CurrentCulture, "Name = {0}, Price = {1:C}, Count = {2}", _name, _price, _count);
 		}
 
 		#endregion
@@ -104,7 +113,18 @@ namespace AdvancedCSharpPart2
 
 		public string ToString(string format, IFormatProvider formatProvider)
 		{
-			return String.Format(formatProvider, format, _name, _price.ToString(), _count.ToString());
+			return String.Format(formatProvider, format, _name, _price, _count);
+		}
+
+		#endregion
+
+		#region ISerialilazable Members
+
+		public void GetObjectData(SerializationInfo info, StreamingContext context)
+		{
+			info.AddValue("Name", _name, typeof(String));
+			info.AddValue("Price", _price, typeof(Decimal));
+			info.AddValue("Count", _count, typeof(uint));
 		}
 
 		#endregion

@@ -7,6 +7,7 @@ namespace AdvancedCSharpPart2
 	{
 		static void Main(string[] args)
 		{
+			//Find are unit test (MS Test).
 		}
 	}
 }
