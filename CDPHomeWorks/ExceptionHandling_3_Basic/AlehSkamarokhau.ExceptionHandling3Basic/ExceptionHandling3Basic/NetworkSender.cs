@@ -1,56 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ExceptionHandling3Basic
 {
-	public class NetworkSender : INetworkSender<string>
+	/// <summary>
+	/// Defines the Network Sender.
+	/// </summary>
+	/// <typeparam name="T">Type of objects to sent.</typeparam>
+	/// <seealso cref="ExceptionHandling3Basic.INetworkSender{T}" />
+	/// <seealso cref="ExceptionHandling3Basic.INetworkSender{System.String}" />
+	/// <seealso cref="System.IDisposable" />
+	public class NetworkSender<T> : INetworkSender<T>, IDisposable
 	{
 		private const int DEFAULT_CAPACITY = 100;
 
-		private Stack<string> _tempStorage;
+		private Stack<T> _tempStorage;
 
 		private BackgroundWorker _bgWorker;
 
-		private void AddToTempStorage(string obj)
+		private void AddToTempStorage(T obj)
 		{
 			_tempStorage.Push(obj);
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="NetworkSender"/> class.
+		/// </summary>
 		public NetworkSender()
 		{
-			_tempStorage = new Stack<string>(DEFAULT_CAPACITY);
+			_tempStorage = new Stack<T>(DEFAULT_CAPACITY);
 
 			_bgWorker = new BackgroundWorker();
 
 			_bgWorker.DoWork += _bgWorker_DoWork;
-			_bgWorker.ProgressChanged += _bgWorker_ProgressChanged;
-			_bgWorker.RunWorkerCompleted += _bgWorker_RunWorkerCompleted;
 		}
 
-		public event EventHandler<NetworkSenderEventArgs<string>> ObjectSent;
+		/// <summary>
+		/// Occurs when object sent.
+		/// </summary>
+		public event EventHandler<NetworkSenderEventArgs<T>> ObjectSent;
 
-		public void Send(string obj)
+		/// <summary>
+		/// Sends the specified object.
+		/// </summary>
+		/// <param name="obj">The object.</param>
+		public void Send(T obj)
 		{
 			AddToTempStorage(obj);
-		}
-
-		private void _bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-		{
-			//TODO: Add the return of the result.
-
-			_bgWorker.DoWork -= _bgWorker_DoWork;
-			_bgWorker.ProgressChanged -= _bgWorker_ProgressChanged;
-			_bgWorker.RunWorkerCompleted -= _bgWorker_RunWorkerCompleted;
-		}
-
-		private void _bgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-		{
-			throw new NotImplementedException();
 		}
 
 		private void _bgWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -59,11 +57,25 @@ namespace ExceptionHandling3Basic
 			{
 				if (_tempStorage.Count > 0)
 				{
-					ObjectSent?.Invoke(this, new NetworkSenderEventArgs<string>(_tempStorage.Pop()));
+					ObjectSent?.Invoke(this, new NetworkSenderEventArgs<T>(_tempStorage.Pop()));
 
 					Thread.Sleep(new TimeSpan(0, 0, 15));
+
+					//HACK: This is code to simulate network error.
+					if (_tempStorage.Count < 3)
+					{
+						throw new Exception("Network error.");
+					}
 				}
 			}
+		}
+
+		/// <summary>
+		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+		/// </summary>
+		public void Dispose()
+		{
+			_bgWorker.DoWork -= _bgWorker_DoWork;
 		}
 	}
 }
