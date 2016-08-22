@@ -5,18 +5,19 @@ namespace ExceptionHandling3Basic
 	/// <summary>
 	/// Declares the Network Sender.
 	/// </summary>
-	/// <typeparam name="T">Type of objects to sent.</typeparam>
-	public interface INetworkSender<T>
+	/// <typeparam name="TContainer">The type of the container.</typeparam>
+	/// <typeparam name="TObject">The type of the object.</typeparam>
+	public interface INetworkSender<TContainer, TObject>
 	{
 		/// <summary>
 		/// Occurs when object sent.
 		/// </summary>
-		event EventHandler<NetworkSenderEventArgs<T>> ObjectSent;
+		event EventHandler<NetworkSenderEventArgs<TObject>> ObjectSent;
 
 		/// <summary>
 		/// Sends the specified object.
 		/// </summary>
-		/// <param name="obj">The object.</param>
-		void Send(T obj);
+		/// <param name="container">The object.</param>
+		void Send(TContainer container);
 	}
 }

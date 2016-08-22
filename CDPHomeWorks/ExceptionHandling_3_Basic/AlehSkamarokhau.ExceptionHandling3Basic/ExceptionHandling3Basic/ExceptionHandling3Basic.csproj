@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="INetworkSender.cs" />
-    <Compile Include="NetworkSender.cs" />
+    <Compile Include="StackNetworkSender.cs" />
     <Compile Include="NetworkSenderEventArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
