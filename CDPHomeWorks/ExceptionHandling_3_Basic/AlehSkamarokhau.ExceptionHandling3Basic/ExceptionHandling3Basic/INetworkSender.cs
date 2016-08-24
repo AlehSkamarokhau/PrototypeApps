@@ -1,23 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ExceptionHandling3Basic
 {
 	/// <summary>
 	/// Declares the Network Sender.
 	/// </summary>
-	/// <typeparam name="TContainer">The type of the container.</typeparam>
-	/// <typeparam name="TObject">The type of the object.</typeparam>
-	public interface INetworkSender<TContainer, TObject>
+	/// <typeparam name="T">The type of an object for send.</typeparam>
+	public interface INetworkSender<T>
 	{
 		/// <summary>
 		/// Occurs when object sent.
 		/// </summary>
-		event EventHandler<NetworkSenderEventArgs<TObject>> ObjectSent;
+		event EventHandler<NetworkSenderEventArgs<T>> ObjectSent;
 
 		/// <summary>
-		/// Sends the specified object.
+		/// Adds to buffer.
 		/// </summary>
-		/// <param name="container">The object.</param>
-		void Send(TContainer container);
+		/// <param name="obj">The object.</param>
+		void AddToBuffer(T obj);
+
+		/// <summary>
+		/// Adds to buffer.
+		/// </summary>
+		/// <param name="container">The container.</param>
+		void AddToBuffer(IEnumerable<T> container);
+
+		/// <summary>
+		/// Sends data from the instance buffer.
+		/// </summary>
+		void Send();
 	}
 }

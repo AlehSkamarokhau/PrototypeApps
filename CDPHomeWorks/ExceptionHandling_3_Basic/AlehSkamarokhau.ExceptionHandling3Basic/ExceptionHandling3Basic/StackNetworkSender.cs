@@ -73,6 +73,7 @@ namespace ExceptionHandling3Basic
 		/// <param name="container">The object.</param>
 		public void Send(Stack<string> container)
 		{
+			//BUG: IS BAD. Needs check on the null.
 			SendDataFromStack(container);
 		}
 

@@ -27,6 +27,7 @@ namespace ExceptionHandling3Basic
 
 			INetworkSender<Stack<string>, string> sender = new StackNetworkSender();
 
+			//BUG: IS BAD. Without unsubscribe.
 			sender.ObjectSent += Sender_ObjectSent;
 
 			try
@@ -39,6 +40,7 @@ namespace ExceptionHandling3Basic
 				Console.WriteLine(ex.ToString());
 				Console.WriteLine();
 
+				//BUG. IS BAD.
 				sender.Send(container);
 			}
 
