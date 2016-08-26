@@ -88,7 +88,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="INetworkSender.cs" />
-    <Compile Include="StackNetworkSender.cs" />
+    <Compile Include="INetworkService.cs" />
+    <Compile Include="NetworkEventArgs.cs" />
+    <Compile Include="NetworkException.cs" />
+    <Compile Include="NetworkService.cs" />
+    <Compile Include="NetworkSender.cs" />
     <Compile Include="NetworkSenderEventArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

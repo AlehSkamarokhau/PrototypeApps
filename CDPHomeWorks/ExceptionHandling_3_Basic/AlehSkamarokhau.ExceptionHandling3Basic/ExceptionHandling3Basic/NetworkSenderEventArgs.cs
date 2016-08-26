@@ -3,31 +3,31 @@
 namespace ExceptionHandling3Basic
 {
 	/// <summary>
-	/// The event class for INetworkSender.
+	/// The event class for Network Senders.
 	/// </summary>
-	/// <typeparam name="TTypeSendObject">The type of the send object.</typeparam>
+	/// <typeparam name="T">The type of the send object.</typeparam>
 	/// <seealso cref="System.EventArgs" />
 	[Serializable]
-	public class NetworkSenderEventArgs<TTypeSendObject> : EventArgs
+	public class NetworkSenderEventArgs<T> : EventArgs
 	{
-		private TTypeSendObject _sendObj;
+		private T _data;
 
 		/// <summary>
-		/// Gets or sets the send object.
+		/// Gets or sets the sent data.
 		/// </summary>
 		/// <value>
-		/// The send object.
+		/// The sent data.
 		/// </value>
-		public TTypeSendObject SendObj
+		public T Data
 		{
-			get { return _sendObj; }
-			set { _sendObj = value; }
+			get { return _data; }
+			set { _data = value; }
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="NetworkSenderEventArgs{TTypeSendObject}"/> class.
 		/// </summary>
-		public NetworkSenderEventArgs() : base()
+		public NetworkSenderEventArgs()
 		{
 			//Empty.
 		}
@@ -35,10 +35,10 @@ namespace ExceptionHandling3Basic
 		/// <summary>
 		/// Initializes a new instance of the <see cref="NetworkSenderEventArgs{TTypeSendObject}"/> class.
 		/// </summary>
-		/// <param name="obj">The object.</param>
-		public NetworkSenderEventArgs(TTypeSendObject obj) : base()
+		/// <param name="data">The sent data.</param>
+		public NetworkSenderEventArgs(T data)
 		{
-			_sendObj = obj;
+			_data = data;
 		}
 	}
 }

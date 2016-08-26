@@ -21,35 +21,38 @@ namespace ExceptionHandling3Basic
 			container.Push("Message 1");
 			container.Push("Message 2");
 			container.Push("Message 3");
-			container.Push(ConstantsHelper.ERROR_SIGNAL);
 			container.Push("Message 4");
 			container.Push("Message 5");
 
-			INetworkSender<Stack<string>, string> sender = new StackNetworkSender();
+			INetworkSender<string> sender = new NetworkSender(new NetworkService());
 
-			//BUG: IS BAD. Without unsubscribe.
-			sender.ObjectSent += Sender_ObjectSent;
+			sender.Sent += Sender_Sent;
+
+			sender.AddToBuffer(container);
+
+			sender.AddToBuffer("Message 6");
 
 			try
 			{
-				sender.Send(container);
+				sender.Send();
 			}
 			catch (Exception ex)
 			{
 				Console.WriteLine();
 				Console.WriteLine(ex.ToString());
 				Console.WriteLine();
-
-				//BUG. IS BAD.
-				sender.Send(container);
 			}
+
+			sender.Send();
+
+			sender.Sent -= Sender_Sent;
 
 			Console.ReadKey();
 		}
 
-		private static void Sender_ObjectSent(object sender, NetworkSenderEventArgs<string> e)
+		private static void Sender_Sent(object sender, NetworkSenderEventArgs<string> e)
 		{
-			Console.WriteLine(e.SendObj);
+			Console.WriteLine(e.Data);
 		}
 	}
 }

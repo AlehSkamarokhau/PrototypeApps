@@ -12,7 +12,15 @@ namespace ExceptionHandling3Basic
 		/// <summary>
 		/// Occurs when object sent.
 		/// </summary>
-		event EventHandler<NetworkSenderEventArgs<T>> ObjectSent;
+		event EventHandler<NetworkSenderEventArgs<T>> Sent;
+
+		/// <summary>
+		/// Gets the buffer.
+		/// </summary>
+		/// <value>
+		/// The buffer.
+		/// </value>
+		IList<T> Buffer { get; }
 
 		/// <summary>
 		/// Adds to buffer.
