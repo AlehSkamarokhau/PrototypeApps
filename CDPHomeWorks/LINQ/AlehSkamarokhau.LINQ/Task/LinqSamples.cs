@@ -183,15 +183,88 @@ namespace SampleQueries
 		[Title("Task 4")]
 		public void Linq4()
 		{
-			foreach (var currentCustomer in dataSource.Customers)
+			var customers = dataSource.Customers.Where(c => c.Orders.Count() > 0).Select(c => new
 			{
-				if (currentCustomer.Orders.Count() > 0)
-				{
-					var dateFirstOrder = currentCustomer.Orders.Min(o => o.OrderDate);
+				CustomerID = c.CustomerID,
+				CompanyName = c.CompanyName,
+				FirstDate = c.Orders.Min(o => o.OrderDate),
+				Total = c.Orders.Sum(o => o.Total)
+			});
 
-					Console.WriteLine("Customer ID - {0}, Company Name - {1}, Date - {2}", currentCustomer.CustomerID, currentCustomer.CompanyName, dateFirstOrder.ToShortDateString());
-				}
+			foreach (var currentCustomer in customers)
+			{
+				Console.WriteLine("Date - {0}, Total - {1}, Company Name - {2}, Customer ID - {3}", currentCustomer.FirstDate.ToShortDateString(),
+																									currentCustomer.Total,
+																									currentCustomer.CompanyName,
+																									currentCustomer.CustomerID);
 			}
+		}
+
+		[Title("Task 5")]
+		public void Linq5()
+		{
+			var customers = dataSource.Customers.Where(c => c.Orders.Count() > 0).Select(c => new
+			{
+				CustomerID = c.CustomerID,
+				CompanyName = c.CompanyName,
+				FirstDate = c.Orders.Min(o => o.OrderDate),
+				Total = c.Orders.Sum(o => o.Total)
+			})
+			.OrderBy(c => c.CompanyName)
+			.OrderByDescending(c => c.Total)
+			.OrderBy(c => c.FirstDate.Month)
+			.OrderBy(c => c.FirstDate.Year);
+
+			foreach (var currentCustomer in customers)
+			{
+				Console.WriteLine("Date - {0}, Total - {1}, Company Name - {2}, Customer ID - {3}", currentCustomer.FirstDate.ToShortDateString(),
+																									currentCustomer.Total,
+																									currentCustomer.CompanyName,
+																									currentCustomer.CustomerID);
+			}
+		}
+
+		[Title("Task 6")]
+		public void Linq6()
+		{
+			var customers = dataSource.Customers.Where(new Func<Customer, bool>((Customer c) =>
+			{
+				int number;
+				return !int.TryParse(c.CustomerID, out number) ||
+						string.IsNullOrWhiteSpace(c.Region) ||
+						c.Phone[0] != '(';
+			}));
+
+			foreach (var currentCustomer in customers)
+			{
+				Console.WriteLine("Customer ID - {0},\tRegion - {1},\tPhone - {2}", currentCustomer.CustomerID, currentCustomer.Region, currentCustomer.Phone);
+			}
+		}
+
+		[Title("Task 7")]
+		public void Linq7()
+		{
+			var products = dataSource.Products.GroupBy(prd => prd.Category)
+											  .Select(ctg => new
+											  {
+												  Category = ctg.Key,
+												  Products = ctg.GroupBy(prd => prd.UnitsInStock > 0)
+																.Select(grp => new { InStock = grp.Key, Products = grp.OrderBy(prd => prd.UnitPrice) })
+											  });
+
+			ObjectDumper.Write(products, 2);
+		}
+
+		[Title("Task 8")]
+		public void Linq8()
+		{
+			var highPrice = 10000M;
+			var lowPrice = 2000M;
+
+			var productGroups = new Dictionary<decimal, IEnumerable<Product>>();
+
+			productGroups.Add(lowPrice, dataSource.Products.Where(prd => prd.UnitPrice <= lowPrice));
+
 		}
 	}
 }
