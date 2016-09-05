@@ -12,6 +12,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using SampleSupport;
+using Task;
 using Task.Data;
 
 // Version Mad01
@@ -22,6 +23,7 @@ namespace SampleQueries
 	[Prefix("Linq")]
 	public class LinqSamples : SampleHarness
 	{
+		private const int DEFAULT_SIZE_SPLIT_LINE = 70;
 
 		private DataSource dataSource = new DataSource();
 
@@ -91,13 +93,104 @@ namespace SampleQueries
 			}
 		}
 
+		[Title("Task 2")]
 		public void Linq2()
 		{
-			Dictionary<Customer, Supplier> customersAndSupplies = new Dictionary<Customer, Supplier>();
+			//TODO: Check results.
+
+			Dictionary<Customer, IList<Supplier>> customersAndSupplies = new Dictionary<Customer, IList<Supplier>>();
+			Dictionary<Customer, IList<IGrouping<string, Supplier>>> customersAndSuppliesGrouped = new Dictionary<Customer, IList<IGrouping<string, Supplier>>>();
 
 			foreach (var currentCustomer in dataSource.Customers)
 			{
-				customersAndSupplies.Add(currentCustomer, dataSource.Suppliers.Where(s => s.Country.Equals(currentCustomer.Country, StringComparison.OrdinalIgnoreCase)));
+				customersAndSupplies.Add(currentCustomer, dataSource.Suppliers.Where(s => s.Country.Equals(currentCustomer.Country, StringComparison.OrdinalIgnoreCase) &&
+																						  s.City.Equals(currentCustomer.City, StringComparison.OrdinalIgnoreCase)).ToList());
+
+				customersAndSuppliesGrouped.Add(currentCustomer, dataSource.Suppliers.Where(s => s.Country.Equals(currentCustomer.Country, StringComparison.OrdinalIgnoreCase) &&
+																						  s.City.Equals(currentCustomer.City, StringComparison.OrdinalIgnoreCase)).GroupBy(s => s.City).ToList());
+			}
+
+			Console.WriteLine("Result without grouping by City:\r\n");
+
+			ConsoleHelper.WriteSplitLine('=', DEFAULT_SIZE_SPLIT_LINE);
+
+			foreach (var currentCustomer in customersAndSupplies.Keys)
+			{
+				if (customersAndSupplies[currentCustomer].Count > 0)
+				{
+					Console.WriteLine("Customer - {0}, Country - {1}, City - {2}:\r\n", currentCustomer.CompanyName, currentCustomer.Country, currentCustomer.City);
+
+					foreach (var currentSupplier in customersAndSupplies[currentCustomer])
+					{
+						Console.WriteLine("{0} :: {1}, {2}", currentSupplier.SupplierName, currentSupplier.Country, currentSupplier.City);
+					}
+
+					Console.WriteLine("\r\n");
+				}
+			}
+
+			ConsoleHelper.WriteSplitLine('=', DEFAULT_SIZE_SPLIT_LINE);
+
+			Console.WriteLine("Result with grouping by City:\r\n");
+
+			ConsoleHelper.WriteSplitLine('=', DEFAULT_SIZE_SPLIT_LINE);
+
+			foreach (var currentCustomer in customersAndSuppliesGrouped.Keys)
+			{
+				if (customersAndSuppliesGrouped[currentCustomer].Count > 0)
+				{
+					Console.WriteLine("Customer - {0}, Country - {1}, City - {2}:\r\n", currentCustomer.CompanyName, currentCustomer.Country, currentCustomer.City);
+
+					foreach (var currentGroupSupplies in customersAndSuppliesGrouped[currentCustomer])
+					{
+						foreach (var currentSupplier in currentGroupSupplies)
+						{
+							Console.WriteLine("{0} :: {1}, {2}", currentSupplier.SupplierName, currentSupplier.Country, currentSupplier.City);
+						}
+					}
+
+					Console.WriteLine("\r\n");
+				}
+			}
+
+			ConsoleHelper.WriteSplitLine('=', DEFAULT_SIZE_SPLIT_LINE);
+		}
+
+		[Title("Task 3")]
+		public void Linq3()
+		{
+			var price = 3000M;
+
+			var findCustomers = dataSource.Customers.Where(c => c.Orders.Where(o => o.Total > price).Count() > 0);
+
+			foreach (var currentCustomer in findCustomers)
+			{
+				var findCustomerOrders = currentCustomer.Orders.Where(o => o.Total > price).OrderByDescending(o => o.Total);
+
+				Console.WriteLine("Customer ID - {0}, Company Name - {1}, Count Orders - {2}:", currentCustomer.CustomerID, currentCustomer.CompanyName, findCustomerOrders.Count());
+
+				ConsoleHelper.WriteSplitLine('=', DEFAULT_SIZE_SPLIT_LINE);
+
+				foreach (var currentOrder in findCustomerOrders)
+				{
+					Console.WriteLine("Order ID - {0}, Total - {1}", currentOrder.OrderID, currentOrder.Total);
+				}
+
+				Console.WriteLine();
+			}
+		}
+
+		[Title("Task 4")]
+		public void Linq4()
+		{
+			foreach (var currentCustomer in dataSource.Customers)
+			{
+				if (currentCustomer.Orders.Count() > 0)
+				{
+					var dateFirstOrder = currentCustomer.Orders.Min(o => o.OrderDate);
+
+					Console.WriteLine("Customer ID - {0}, Company Name - {1}, Date - {2}", currentCustomer.CustomerID, currentCustomer.CompanyName, dateFirstOrder.ToShortDateString());
+				}
 			}
 		}
 	}
