@@ -258,13 +258,105 @@ namespace SampleQueries
 		[Title("Task 8")]
 		public void Linq8()
 		{
-			var highPrice = 10000M;
-			var lowPrice = 2000M;
+			var highPrice = 100M;
+			var lowPrice = 20M;
 
-			var productGroups = new Dictionary<decimal, IEnumerable<Product>>();
+			var gruppedProducts = new
+			{
+				CheapProducts = dataSource.Products.Where(p => p.UnitPrice <= lowPrice),
+				AverageProducts = dataSource.Products.Where(p => p.UnitPrice >= lowPrice & p.UnitPrice <= highPrice),
+				ExpensiveProducts = dataSource.Products.Where(p => p.UnitPrice >= highPrice)
+			};
 
-			productGroups.Add(lowPrice, dataSource.Products.Where(prd => prd.UnitPrice <= lowPrice));
+			Console.WriteLine("Cheap Products:");
+			foreach (var currentProduct in gruppedProducts.CheapProducts)
+			{
+				Console.WriteLine("ID - {0}\tName - {1}\tPrice - {2}", currentProduct.ProductID, currentProduct.ProductName, currentProduct.UnitPrice);
+			}
 
+			Console.WriteLine("\r\nAverage Products:");
+			foreach (var currentProduct in gruppedProducts.AverageProducts)
+			{
+				Console.WriteLine("ID - {0}\tName - {1}\tPrice - {2}", currentProduct.ProductID, currentProduct.ProductName, currentProduct.UnitPrice);
+			}
+
+			Console.WriteLine("\r\nExpensive Products:");
+			foreach (var currentProduct in gruppedProducts.ExpensiveProducts)
+			{
+				Console.WriteLine("ID - {0}\tName - {1}\tPrice - {2}", currentProduct.ProductID, currentProduct.ProductName, currentProduct.UnitPrice);
+			}
+		}
+
+		[Title("Task 9")]
+		public void Linq9()
+		{
+			var averageCityProfitability = dataSource.Customers.GroupBy(cst => cst.City)
+															   .Select(cityProf => new
+															   {
+																   City = cityProf.Key,
+																   CustomersProfitability = Math.Round(cityProf.Where(cst => cst.Orders.Count() > 0).Select(cst => cst.Orders.Select(ord => ord.Total).Average()).Average(), 3)
+															   })
+															   .OrderByDescending(cityProfit => cityProfit.CustomersProfitability);
+
+			var averageCityOrderFrequency = dataSource.Customers.GroupBy(cst => cst.City)
+															.Select(ordFreq => new
+															{
+																City = ordFreq.Key,
+																OrderFrequency = Math.Round(ordFreq.Where(cst => cst.Orders.Count() > 0).Select(cst => cst.Orders.Count()).Average(), 1)
+															})
+															.OrderByDescending(ordFreq => ordFreq.OrderFrequency);
+
+			Console.WriteLine("Average City Profitability:\r\n");
+			ObjectDumper.Write(averageCityProfitability, 2);
+
+			Console.WriteLine("\r\nAverage City Orders Frequency:\r\n");
+			ObjectDumper.Write(averageCityOrderFrequency, 2);
+		}
+
+		[Title("Task 10")]
+		public void Linq10()
+		{
+			var monthStatistics = dataSource.Customers.Select(cst => new { CustomerID = cst.CustomerID,
+																		  CompanyName = cst.CompanyName,
+																		  Statistics = cst.Orders.GroupBy(ord => ord.OrderDate.Month)
+																								 .Select(sts => new { Month = sts.Key,
+																													  CountOrders = sts.Count(),
+																													  TotalProfit = sts.Sum(ord => ord.Total),
+																													  AverageOrderPrice = Math.Round(sts.Average(ord => ord.Total), 3)})});
+
+			var yearStatistics = dataSource.Customers.Select(cst => new { CustomerID = cst.CustomerID,
+																		  CompanyName = cst.CompanyName,
+																		  Statistics = cst.Orders.GroupBy(ord => ord.OrderDate.Year)
+																								 .Select(sts => new { Year = sts.Key,
+																													  CountOrders = sts.Count(),
+																													  TotalProfit = sts.Sum(ord => ord.Total),
+																													  AverageOrderPrice = Math.Round(sts.Average(ord => ord.Total), 3)
+																								 })
+			});
+
+			var yearAndMonthStatistics = dataSource.Customers.Select(cst => new { CustomerID = cst.CustomerID,
+																				  CompanyName = cst.CompanyName,
+																				  Statistics = cst.Orders.GroupBy(ord => ord.OrderDate.Year)
+																								 .Select(sts => new { Year = sts.Key,
+																													  CountOrders = sts.Count(),
+																													  TotalProfit = sts.Sum(ord => ord.Total),
+																													  AverageOrderPrice = Math.Round(sts.Average(ord => ord.Total), 3),
+																													  MonthStatistics = sts.GroupBy(ord => ord.OrderDate.Month)
+																																		   .Select(msts => new { Month = msts.Key,
+																																								 CountOrders = msts.Count(),
+																																								 TotalProfit = msts.Sum(ord => ord.Total),
+																																								 AverageOrderPrice = Math.Round(msts.Average(ord => ord.Total), 3)})
+																								 })
+			});
+
+			Console.WriteLine("Statistics by Months:\r\n");
+			ObjectDumper.Write(monthStatistics, 3);
+
+			Console.WriteLine("\r\nStatistics by Years:\r\n");
+			ObjectDumper.Write(yearStatistics, 3);
+
+			Console.WriteLine("\r\nStatistics by Years and Months:\r\n");
+			ObjectDumper.Write(yearAndMonthStatistics, 3);
 		}
 	}
 }
