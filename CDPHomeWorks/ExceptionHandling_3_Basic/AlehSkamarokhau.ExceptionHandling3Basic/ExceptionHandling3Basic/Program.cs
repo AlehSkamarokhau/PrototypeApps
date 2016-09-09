@@ -31,6 +31,7 @@ namespace ExceptionHandling3Basic
 			sender.AddToBuffer(container);
 
 			sender.AddToBuffer("Message 6");
+			sender.AddToBuffer("Message 7");
 
 			try
 			{

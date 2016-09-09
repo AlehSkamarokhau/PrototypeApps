@@ -14,7 +14,7 @@ namespace ExceptionHandling3Basic
 
 		private INetworkService _networkService;
 
-		private IList<string> _buffer;
+		private Queue<string> _buffer;
 
 		#endregion
 
@@ -41,30 +41,6 @@ namespace ExceptionHandling3Basic
 
 		#region Public Properties
 
-		/// <summary>
-		/// Gets the buffer.
-		/// </summary>
-		/// <value>
-		/// The buffer.
-		/// </value>
-		/// <exception cref="NullReferenceException">_buffer</exception>
-		public IList<string> Buffer
-		{
-			get
-			{
-				return _buffer;
-			}
-			private set
-			{
-				if (value == null)
-				{
-					throw new NullReferenceException("_buffer");
-				}
-
-				_buffer = value;
-			}
-		}
-
 		#endregion
 
 		#region Constructor
@@ -77,7 +53,7 @@ namespace ExceptionHandling3Basic
 		{
 			NetworkService = networkService;
 
-			Buffer = new List<string>();
+			_buffer = new Queue<string>();
 
 			NetworkService.Sent += NetworkService_Sent;
 		}
@@ -103,7 +79,7 @@ namespace ExceptionHandling3Basic
 				throw new ArgumentNullException("obj");
 			}
 
-			Buffer.Add(obj);
+			_buffer.Enqueue(obj);
 		}
 
 		/// <summary>
@@ -128,11 +104,11 @@ namespace ExceptionHandling3Basic
 		/// </summary>
 		public void Send()
 		{
-			while (Buffer.Count > 0)
+			while (_buffer.Count > 0)
 			{
 				try
 				{
-					NetworkService.Send<string>(Buffer[Buffer.Count - 1]);
+					NetworkService.Send<string>(_buffer.Peek());
 				}
 				catch (ArgumentNullException ex)
 				{
@@ -147,7 +123,7 @@ namespace ExceptionHandling3Basic
 					throw;
 				}
 
-				Buffer.RemoveAt(Buffer.Count - 1);
+				_buffer.Dequeue();
 			}
 		}
 
