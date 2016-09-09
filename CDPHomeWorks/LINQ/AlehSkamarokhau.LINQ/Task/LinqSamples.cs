@@ -53,50 +53,36 @@ namespace SampleQueries
 		[Description("Для каждого клиента составьте список поставщиков, находящихся в той же стране и том же городе. Сделайте задания с использованием группировки и без.")]
 		public void Linq2()
 		{
-			Dictionary<Customer, IList<Supplier>> customersAndSupplies = new Dictionary<Customer, IList<Supplier>>();
-			Dictionary<Customer, IList<IGrouping<string, Supplier>>> customersAndSuppliesGrouped = new Dictionary<Customer, IList<IGrouping<string, Supplier>>>();
+			var customersAndSupplies = dataSource.Customers.Select(cst => new { CustomerID = cst.CustomerID,
+																				CompanyName = cst.CompanyName,
+																				Country = cst.Country,
+																				City = cst.City,
+																				Supplies = dataSource.Suppliers.Where(spl => spl.Country.Equals(cst.Country, StringComparison.OrdinalIgnoreCase) &&
+																															 spl.City.Equals(cst.City, StringComparison.OrdinalIgnoreCase))});
 
-			foreach (var currentCustomer in dataSource.Customers)
-			{
-				customersAndSupplies.Add(currentCustomer, dataSource.Suppliers.Where(s => s.Country.Equals(currentCustomer.Country, StringComparison.OrdinalIgnoreCase) &&
-																						  s.City.Equals(currentCustomer.City, StringComparison.OrdinalIgnoreCase)).ToList());
-
-				customersAndSuppliesGrouped.Add(currentCustomer, dataSource.Suppliers.Where(s => s.Country.Equals(currentCustomer.Country, StringComparison.OrdinalIgnoreCase) &&
-																						  s.City.Equals(currentCustomer.City, StringComparison.OrdinalIgnoreCase)).GroupBy(s => s.City).ToList());
-			}
+			var customersAndSuppliesGrouped = dataSource.Customers.GroupBy(cst => cst.Country)
+																  .Select(cst => new
+																  {
+																	  Country = cst.Key,
+																	  Citys = cst.GroupBy(cstmr => cstmr.City).Select(cas => new
+																	  {
+																		  City = cas.Key,
+																		  Customers = cas.Select(cstmr => new
+																		  {
+																			  CustomerID = cstmr.CustomerID,
+																			  CompanyName = cstmr.CompanyName
+																		  }),
+																		  Suppliers = dataSource.Suppliers.Where(spl => spl.City.Equals(cas.Key, StringComparison.OrdinalIgnoreCase))
+																	  })
+																  });
 
 			Console.WriteLine("Result without grouping by City:\r\n");
 
-			foreach (var currentCustomer in customersAndSupplies.Keys)
-			{
-				if (customersAndSupplies[currentCustomer].Count > 0)
-				{
-					Console.WriteLine("Customer - {0}, Country - {1}, City - {2}:", currentCustomer.CompanyName, currentCustomer.Country, currentCustomer.City);
-
-					foreach (var currentSupplier in customersAndSupplies[currentCustomer])
-					{
-						Console.WriteLine("{0} :: {1}, {2}", currentSupplier.SupplierName, currentSupplier.Country, currentSupplier.City);
-					}
-				}
-			}
+			ObjectDumper.Write(customersAndSupplies, 3);
 
 			Console.WriteLine("\r\nResult with grouping by City:\r\n");
 
-			foreach (var currentCustomer in customersAndSuppliesGrouped.Keys)
-			{
-				if (customersAndSuppliesGrouped[currentCustomer].Count > 0)
-				{
-					Console.WriteLine("Customer - {0}, Country - {1}, City - {2}:", currentCustomer.CompanyName, currentCustomer.Country, currentCustomer.City);
-
-					foreach (var currentGroupSupplies in customersAndSuppliesGrouped[currentCustomer])
-					{
-						foreach (var currentSupplier in currentGroupSupplies)
-						{
-							Console.WriteLine("{0} :: {1}, {2}", currentSupplier.SupplierName, currentSupplier.Country, currentSupplier.City);
-						}
-					}
-				}
-			}
+			ObjectDumper.Write(customersAndSuppliesGrouped, 5);
 		}
 
 		[Title("Task 3")]
@@ -246,19 +232,19 @@ namespace SampleQueries
 															   })
 															   .OrderByDescending(cityProfit => cityProfit.CustomersProfitability);
 
-			var averageCityOrderFrequency = dataSource.Customers.GroupBy(cst => cst.City)
+			var averageCityOrderCount = dataSource.Customers.GroupBy(cst => cst.City)
 															.Select(ordFreq => new
 															{
 																City = ordFreq.Key,
-																OrderFrequency = Math.Round(ordFreq.Where(cst => cst.Orders.Count() > 0).Select(cst => cst.Orders.Count()).Average(), 1)
+																AverageOrderCount = Math.Round(ordFreq.Where(cst => cst.Orders.Count() > 0).Select(cst => cst.Orders.Count()).Average(), 1)
 															})
-															.OrderByDescending(ordFreq => ordFreq.OrderFrequency);
+															.OrderByDescending(ordFreq => ordFreq.AverageOrderCount);
 
 			Console.WriteLine("Average City Profitability:\r\n");
 			ObjectDumper.Write(averageCityProfitability, 2);
 
 			Console.WriteLine("\r\nAverage City Orders Frequency:\r\n");
-			ObjectDumper.Write(averageCityOrderFrequency, 2);
+			ObjectDumper.Write(averageCityOrderCount, 2);
 		}
 
 		[Title("Task 10")]
