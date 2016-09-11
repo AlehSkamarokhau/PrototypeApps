@@ -5,7 +5,7 @@ using System.Diagnostics;
 namespace ExceptionHandling3Basic
 {
 	/// <summary>
-	/// Defines the sender for stack.
+	/// Defines the network sender.
 	/// </summary>
 	/// <seealso cref="ExceptionHandling3Basic.INetworkSender{System.Collections.Generic.Stack{System.String}, System.String}" />
 	public class NetworkSender : INetworkSender<string>, IDisposable
@@ -40,6 +40,14 @@ namespace ExceptionHandling3Basic
 		#endregion
 
 		#region Public Properties
+
+		public IEnumerable<string> Buffer
+		{
+			get
+			{
+				return _buffer;
+			}
+		}
 
 		#endregion
 

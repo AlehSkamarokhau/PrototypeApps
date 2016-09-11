@@ -21,6 +21,7 @@ namespace ExceptionHandling3Basic
 			container.Push("Message 1");
 			container.Push("Message 2");
 			container.Push("Message 3");
+			container.Push(ConstantsHelper.ERROR_SIGNAL);
 			container.Push("Message 4");
 			container.Push("Message 5");
 
@@ -32,6 +33,9 @@ namespace ExceptionHandling3Basic
 
 			sender.AddToBuffer("Message 6");
 			sender.AddToBuffer("Message 7");
+
+			//To find the error code generation find a comment.
+			//"HACK: For generate error."
 
 			try
 			{
@@ -47,6 +51,8 @@ namespace ExceptionHandling3Basic
 			sender.Send();
 
 			sender.Sent -= Sender_Sent;
+
+			(sender as IDisposable)?.Dispose();
 
 			Console.ReadKey();
 		}

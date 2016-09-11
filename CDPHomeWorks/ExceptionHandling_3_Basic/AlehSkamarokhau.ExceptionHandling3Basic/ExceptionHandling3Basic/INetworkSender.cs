@@ -15,6 +15,14 @@ namespace ExceptionHandling3Basic
 		event EventHandler<NetworkSenderEventArgs<T>> Sent;
 
 		/// <summary>
+		/// Gets the buffer.
+		/// </summary>
+		/// <value>
+		/// The buffer.
+		/// </value>
+		IEnumerable<T> Buffer { get; }
+
+		/// <summary>
 		/// Adds to buffer.
 		/// </summary>
 		/// <param name="obj">The object.</param>

@@ -9,12 +9,15 @@ namespace ExceptionHandling3Basic
 	/// <seealso cref="System.IDisposable" />
 	public class NetworkService : INetworkService, IDisposable
 	{
+		//HACK: For the generate error only once.
+		private bool _isThrowError;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="NetworkService"/> class.
 		/// </summary>
 		public NetworkService()
 		{
-			//Empty.
+			_isThrowError = true;
 		}
 
 		/// <summary>
@@ -39,6 +42,19 @@ namespace ExceptionHandling3Basic
 			}
 
 			//Do something for sending by network.
+
+			//HACK: For generate error.
+			if (_isThrowError)
+			{
+				if (data is string)
+				{
+					if ((data as string) == ConstantsHelper.ERROR_SIGNAL)
+					{
+						_isThrowError = false;
+						throw new NetworkException("Something network error.");
+					}
+				}
+			}
 
 			Sent?.Invoke(this, new NetworkEventArgs(data));
 		}
