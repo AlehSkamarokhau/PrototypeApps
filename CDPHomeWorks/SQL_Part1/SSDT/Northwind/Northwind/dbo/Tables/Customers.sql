@@ -10,6 +10,7 @@
     [Country]      NVARCHAR (15) NULL,
     [Phone]        NVARCHAR (24) NULL,
     [Fax]          NVARCHAR (24) NULL,
+	[FoundedDate]  DATETIME NULL,
     CONSTRAINT [PK_Customers] PRIMARY KEY CLUSTERED ([CustomerID] ASC)
 );
 
