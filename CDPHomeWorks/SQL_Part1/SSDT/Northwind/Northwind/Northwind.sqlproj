@@ -100,5 +100,9 @@
     <Build Include="dbo\Views\Sales Totals by Amount.sql" />
     <Build Include="dbo\Views\Summary of Sales by Quarter.sql" />
     <Build Include="dbo\Views\Summary of Sales by Year.sql" />
+    <Build Include="dbo\Tables\CreditCards.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Snapshots\Northwind_v100.dacpac" />
   </ItemGroup>
 </Project>
