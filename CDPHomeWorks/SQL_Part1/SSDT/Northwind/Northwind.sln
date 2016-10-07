@@ -5,6 +5,12 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Northwind", "Northwind\Northwind.sqlproj", "{FAF82116-9520-4BCC-9D74-BD2BD244A1D4}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Northwind_v100", "Northwind_v100\Northwind_v100.sqlproj", "{56991C76-6BF0-4BA9-B2DF-1378B5DE986E}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Northwind_v110", "Northwind_v110\Northwind_v110.sqlproj", "{0B66DAA8-5785-4327-AE3C-75FF7B00C456}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Northwind_v130", "Northwind_v130\Northwind_v130.sqlproj", "{51EC3A71-5BBF-49AE-83B7-C390008CCC86}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +23,24 @@ Global
 		{FAF82116-9520-4BCC-9D74-BD2BD244A1D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAF82116-9520-4BCC-9D74-BD2BD244A1D4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FAF82116-9520-4BCC-9D74-BD2BD244A1D4}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{56991C76-6BF0-4BA9-B2DF-1378B5DE986E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56991C76-6BF0-4BA9-B2DF-1378B5DE986E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56991C76-6BF0-4BA9-B2DF-1378B5DE986E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{56991C76-6BF0-4BA9-B2DF-1378B5DE986E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56991C76-6BF0-4BA9-B2DF-1378B5DE986E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56991C76-6BF0-4BA9-B2DF-1378B5DE986E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0B66DAA8-5785-4327-AE3C-75FF7B00C456}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B66DAA8-5785-4327-AE3C-75FF7B00C456}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B66DAA8-5785-4327-AE3C-75FF7B00C456}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0B66DAA8-5785-4327-AE3C-75FF7B00C456}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B66DAA8-5785-4327-AE3C-75FF7B00C456}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B66DAA8-5785-4327-AE3C-75FF7B00C456}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{51EC3A71-5BBF-49AE-83B7-C390008CCC86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51EC3A71-5BBF-49AE-83B7-C390008CCC86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51EC3A71-5BBF-49AE-83B7-C390008CCC86}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{51EC3A71-5BBF-49AE-83B7-C390008CCC86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51EC3A71-5BBF-49AE-83B7-C390008CCC86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51EC3A71-5BBF-49AE-83B7-C390008CCC86}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
