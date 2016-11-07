@@ -100,4 +100,7 @@
     <Build Include="dbo\Stored Procedures\SalesByCategory.sql" />
     <Build Include="dbo\Stored Procedures\Ten Most Expensive Products.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeploymentInsertTestData.sql" />
+  </ItemGroup>
 </Project>
